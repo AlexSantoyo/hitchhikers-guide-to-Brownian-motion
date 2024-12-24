@@ -1,0 +1,3 @@
+# Simple Brownian properties...
+
+Starting with the Brownian motion class.
