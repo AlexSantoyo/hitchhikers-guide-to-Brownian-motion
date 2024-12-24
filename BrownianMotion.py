@@ -27,9 +27,15 @@ import matplotlib.pyplot as plt
 import random as rnd
 
 class BrownianMotion:
-    def __init__(self,drift,stdev): #,time,No_buckets):
-        self.mu = drift
-        self.sigma = stdev
+    """
+    Arithmetic Brownian motion object.
+    Inputs:
+        mu: real number, the constant for the linear drift
+        sigma: real positive number, the standar deviation of the diffusion part
+    """
+    def __init__(self,mu,sigma): #,time,No_buckets):
+        self.mu = mu
+        self.sigma = sigma
         self.initp = 0
         self.time = []
         self.N = []
@@ -54,18 +60,19 @@ class BrownianMotion:
         plt.xlabel('Time')
         plt.ylabel('Sample path')
         plt.show()
-        
-bm = BrownianMotion(0,5)        
-bmsp = bm.sample_path(0,1,1000)        
-bm.plot_sp(bmsp)        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+if __name__ == "__main__":        
+    bm = BrownianMotion(0,5)        
+    bmsp = bm.sample_path(0,1,1000)        
+    bm.plot_sp(bmsp)        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
