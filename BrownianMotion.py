@@ -52,9 +52,27 @@ class BrownianMotion:
         # trayectoria
         return np.append(self.initp,np.cumsum(incr_mb))
 
-    def plot_sp (self, sample_path):
+    def sample_paths(self, initpoint, time, No_buckets, No_paths=1):
+        self.time = time
+        self.N = No_buckets
+        self.initp = initpoint
+        
+        #equipartition
+        self.dt = self.time/self.N
+        #incrementos
+        incr_mb = np.repeat(self.mu * self.dt,self.N) + np.sqrt(self.dt)*np.random.normal(0, self.sigma, size=(No_paths, self.N))
+        print(np.transpose(np.array([self.initp]*No_paths)).shape)
+        print(np.array([self.initp]*No_paths).shape)
+        print(incr_mb)
+        print(np.cumsum(incr_mb,axis=1))    
+        print(incr_mb.shape)   
+
+        # sample paths
+        return np.vstack((np.array([self.initp]*No_paths),np.transpose(np.cumsum(incr_mb, axis=1))))
+    
+    def plot_sp (self, sample_paths):
         x = np.arange(0,self.time+self.dt,self.dt)
-        y = sample_path
+        y = sample_paths
         plt.plot(x,y)
         plt.title('Brownian motion')
         plt.xlabel('Time')
@@ -62,8 +80,11 @@ class BrownianMotion:
         plt.show()
 
 if __name__ == "__main__":        
-    bm = BrownianMotion(0,5)        
-    bmsp = bm.sample_path(0,1,1000)        
+    bm = BrownianMotion(0,1)
+    
+    bmsp = bm.sample_paths(0,1,1000,8)        
+    print(bmsp.shape)
+
     bm.plot_sp(bmsp)        
             
             
